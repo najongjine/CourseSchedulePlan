@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>4주차 5일 - 완성: 음료 자판기</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="site-head"><a class="course" href="index.html">정보처리기사 준비 + 미니 쇼핑몰</a><nav><a href="index.html">전체 차시</a><a href="#project">오늘 산출물</a></nav></header>
+<main class="page">
+<section class="hero"><div class="badges"><span class="badge ">Java</span><span class="badge gold">4주차 5일차</span><span class="badge gray">Java 종합</span></div><h1>완성: 음료 자판기</h1><p>상품 객체 배열, 선택, 돈 검사, 재고 변화를 묶어 작동하는 자판기를 완성한다.</p></section>
+<div class="lesson-grid"><aside class="side"><strong>4주차 5일차</strong><a href="#goals">오늘의 목표</a><a href="#flow">4시간 흐름</a><a href="#sense">감각으로 이해하기</a><a href="#typing">직접 따라치기</a><a href="#trace">기사형 코드 추적</a><a href="#practice">손으로 푸는 연습</a><a href="#project">금요일 프로젝트 연결</a><div class="move"><a href="04주차_04일.html">이전</a><a href="05주차_01일.html">다음</a></div></aside><article class="content">
+<section class="panel" id="goals"><h2>오늘의 목표</h2><ul class="goals"><li>상품 목록에서 하나를 선택해 구매한다.</li><li>오류와 품절을 시험한다.</li><li>생성자·객체 배열·메서드 추적을 복습한다.</li></ul></section>
+<section class="panel" id="flow"><h2>오늘 4시간의 흐름</h2><div class="timeline"><div><b>1교시</b>핵심 문법 미니 테스트와 손 추적</div><div><b>2교시</b>완성 코드를 기능별로 입력</div><div><b>3교시</b>실행, 오류 수정, 선택 기능</div><div><b>4교시</b>시연하고 자기 코드 설명</div></div></section>
+<section class="panel sense" id="sense"><h2>먼저 감각으로 이해하기</h2><h3>자판기는 상품 객체의 상태를 바꾸는 프로그램</h3><p>버튼을 누르는 것은 배열에서 객체 하나를 고르는 일이고, 판매는 그 객체의 stock을 한 개 줄이는 일이다.</p><p>한 번의 판매가 확실히 동작하고 설명되면 성공이다. 반복 구매나 할인은 선택으로 남긴다.</p><div class="diagram"><span class="node"><strong>배열</strong>상품 3개</span><span class="arrow">→</span><span class="node"><strong>선택</strong>choice-1</span><span class="arrow">→</span><span class="node"><strong>buy</strong>검사</span><span class="arrow">→</span><span class="node"><strong>객체 stock</strong>-1</span></div><p class="note">손가락 실습: 친구가 상품 번호와 돈을 불러 주면 배열 위치와 stock 변경을 종이에 기록한 뒤 실행 결과와 비교한다.</p></section>
+<section class="panel typing" id="typing"><h2>직접 따라치기</h2><div class="typing-body"><p>코드가 길어 보이면 `Drink` 설계도와 `main` 사용 부분을 나누어 입력한다.</p><h3>코드를 입력한 뒤 반드시 실행한다</h3></div><pre><code>import java.util.Scanner;
+
+class Drink {
+    String name;
+    int price;
+    int stock;
+    Drink(String n, int p, int s) { name = n; price = p; stock = s; }
+    void show(int no) {
+        System.out.println(no + &quot;. &quot; + name + &quot; &quot; + price + &quot;원 (&quot; + stock + &quot;개)&quot;);
+    }
+    void buy(int money) {
+        if (stock &lt; 1) System.out.println(&quot;품절입니다.&quot;);
+        else if (money &lt; price) System.out.println(&quot;돈이 부족합니다.&quot;);
+        else {
+            stock--;
+            System.out.println(name + &quot;가 나왔습니다. 잔돈: &quot; + (money - price));
+        }
+    }
+}
+
+public class VendingMachine {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Drink[] drinks = { new Drink(&quot;콜라&quot;, 1200, 2),
+                           new Drink(&quot;사이다&quot;, 1000, 2),
+                           new Drink(&quot;물&quot;, 800, 3) };
+        for (int i = 0; i &lt; drinks.length; i++) drinks[i].show(i + 1);
+        System.out.print(&quot;상품 번호와 돈: &quot;);
+        int choice = sc.nextInt();
+        int money = sc.nextInt();
+        if (choice &gt;= 1 &amp;&amp; choice &lt;= drinks.length)
+            drinks[choice - 1].buy(money);
+        else
+            System.out.println(&quot;없는 상품입니다.&quot;);
+    }
+}</code></pre><div class="typing-body"><h3>실행 결과 예</h3><div class="output">1. 콜라 1200원 (2개)
+2. 사이다 1000원 (2개)
+3. 물 800원 (3개)
+상품 번호와 돈: 2 1500
+사이다가 나왔습니다. 잔돈: 500</div><h3>한 줄씩 읽어 보기</h3><ol class="tasks"><li>배열 출력 후 사용자가 입력한 2는 배열 1번의 사이다 객체를 고른다.</li><li>`buy` 메서드에서 재고와 돈을 통과해야만 해당 객체 stock이 줄어든다.</li><li>없는 번호는 배열을 읽기 전에 거절하므로 안전하다.</li></ol><details><summary>입력한 뒤 바꾸어 볼 값</summary><p>선택 기능으로 판매 뒤 해당 음료의 남은 재고를 출력하려면 `buy`의 성공 경로에 한 줄을 추가한다.</p></details></div></section>
+<section class="panel exam" id="trace"><h2>손으로 추적하는 문제</h2><p>객체 배열 문제에서는 선택 인덱스, 실제 객체, 변경된 필드 세 칸을 표로 작성한다.</p><pre><code>class Item {
+    int stock;
+    Item(int s) { stock = s; }
+    void sell() { if (stock &gt; 0) stock--; }
+}
+Item[] items = {new Item(1), new Item(2)};
+items[0].sell();
+items[1].sell();
+items[1].sell();
+System.out.print(items[0].stock + items[1].stock);</code></pre><p><strong>문제.</strong> 출력값은 무엇인가?</p><details><summary>정답과 풀이 열기</summary><p>첫 객체는 1에서 0, 둘째 객체는 2에서 두 번 감소해 0이다. 두 값을 더한 출력은 `0`.</p></details></section>
+<section class="panel practice" id="practice"><h2>감각을 굳히는 연습</h2><p>먼저 종이에 예상 결과를 적고, 그 다음 코드를 바꾸어 실행해서 확인한다. 틀렸다면 틀린 이유가 학습 기록이다.</p><ol class="tasks"><li>콜라를 정상 구매해 잔돈을 확인한다.</li><li>없는 상품 번호와 부족한 돈을 각각 입력해 오류 경로를 확인한다.</li><li>상품 객체 하나의 판매 전/후 값을 표로 제출한다.</li></ol><details><summary>연습 확인 포인트</summary><p>다음 Python 주차에서는 같은 합계와 목록 문제를 더 짧은 코드로 처리한다.</p></details></section>
+<section class="panel project" id="project"><div class="badges"><span class="badge gold">금요일 작품으로 연결</span></div><h2>제출 작품: 음료 자판기</h2><p>C와 Java 기초 프로젝트를 마감한다. 객체가 가진 가격·재고라는 발상은 쇼핑몰 DB의 상품 행으로 이어진다.</p><h3>오늘 저장할 것</h3><div class="checkpoint"><div class="check">실행 가능한 `VendingMachine.java`</div><div class="check">Java 미니 테스트와 테스트표</div></div></section>
+</article></div>
+<nav class="footer-nav"><a href="04주차_04일.html">← 이전 수업</a><a href="05주차_01일.html">다음 수업 →</a></nav>
+</main></body></html>

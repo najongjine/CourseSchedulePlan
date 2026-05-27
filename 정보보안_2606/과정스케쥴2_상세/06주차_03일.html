@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>6주차 3일 - 총액에 따라 할인 적용하기</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="site-head"><a class="course" href="index.html">정보처리기사 준비 + 미니 쇼핑몰</a><nav><a href="index.html">전체 차시</a><a href="#project">오늘 산출물</a></nav></header>
+<main class="page">
+<section class="hero"><div class="badges"><span class="badge ">Python</span><span class="badge gold">6주차 3일차</span><span class="badge gray">Python 함수/조건</span></div><h1>총액에 따라 할인 적용하기</h1><p>할인 전 총액이 기준 금액 이상이면 일정 금액을 빼는 규칙을 함수로 만든다.</p></section>
+<div class="lesson-grid"><aside class="side"><strong>6주차 3일차</strong><a href="#goals">오늘의 목표</a><a href="#flow">4시간 흐름</a><a href="#sense">감각으로 이해하기</a><a href="#typing">직접 따라치기</a><a href="#trace">기사형 코드 추적</a><a href="#practice">손으로 푸는 연습</a><a href="#project">금요일 프로젝트 연결</a><div class="move"><a href="06주차_02일.html">이전</a><a href="06주차_04일.html">다음</a></div></aside><article class="content">
+<section class="panel" id="goals"><h2>오늘의 목표</h2><ul class="goals"><li>금액 조건을 함수로 분리한다.</li><li>할인액과 결제액을 구분한다.</li><li>경계 금액을 테스트한다.</li></ul></section>
+<section class="panel" id="flow"><h2>오늘 4시간의 흐름</h2><div class="timeline"><div><b>1교시</b>개념을 그림과 코드로 이해</div><div><b>2교시</b>예제를 직접 입력하고 실행</div><div><b>3교시</b>금요일 작품 기능 한 조각 작성</div><div><b>4교시</b>값을 바꾸고 손 추적 연습</div></div></section>
+<section class="panel sense" id="sense"><h2>먼저 감각으로 이해하기</h2><h3>할인은 장바구니를 다 채운 뒤 찍는 쿠폰 도장</h3><p>상품마다 마음대로 할인하는 것이 아니라 전체 total이 기준을 넘는지 확인한 뒤 discount를 결정한다.</p><p>결제액은 `total - discount`이다. 할인 전/할인액/결제액 세 값을 화면에 따로 보여 주면 계산이 보인다.</p><div class="diagram"><span class="node"><strong>총액</strong>12000</span><span class="arrow">→</span><span class="node"><strong>기준</strong>&gt;=10000</span><span class="arrow">→</span><span class="node"><strong>할인액</strong>1000</span><span class="arrow">→</span><span class="node"><strong>결제액</strong>11000</span></div><p class="note">손가락 실습: 10000원 경계선을 바닥에 표시하고 총액 카드 9999, 10000, 12000을 어느 쪽에 놓을지 판단한다.</p></section>
+<section class="panel typing" id="typing"><h2>직접 따라치기</h2><div class="typing-body"><p>함수를 단독 실행하여 경계값의 반환을 먼저 확인한다.</p><h3>코드를 입력한 뒤 반드시 실행한다</h3></div><pre><code>def get_discount(total):
+    if total &gt;= 10000:
+        return 1000
+    return 0
+
+total = 12000
+discount = get_discount(total)
+payment = total - discount
+print(&quot;총액:&quot;, total)
+print(&quot;할인:&quot;, discount)
+print(&quot;결제:&quot;, payment)</code></pre><div class="typing-body"><h3>실행 결과 예</h3><div class="output">총액: 12000
+할인: 1000
+결제: 11000</div><h3>한 줄씩 읽어 보기</h3><ol class="tasks"><li>함수에 total=12000이 들어가 조건이 참이므로 1000을 반환한다.</li><li>반환된 할인액은 원래 total을 자동으로 바꾸지 않는다.</li><li>결제액을 계산하는 줄에서 실제 차감이 이루어진다.</li></ol><details><summary>입력한 뒤 바꾸어 볼 값</summary><p>total을 9999와 10000으로 바꾸어 할인액이 달라지는 정확한 경계를 확인한다.</p></details></div></section>
+<section class="panel exam" id="trace"><h2>손으로 추적하는 문제</h2><p>경계값에서 `&gt;=`와 `&gt;`의 차이는 시험에도 프로젝트 버그에도 중요하다.</p><pre><code>def sale(total):
+    if total &gt; 5000:
+        return total - 500
+    return total
+print(sale(5000), sale(5001))</code></pre><p><strong>문제.</strong> 두 출력값은 무엇인가?</p><details><summary>정답과 풀이 열기</summary><p>5000은 `&gt;` 조건이 거짓이라 5000 그대로이고, 5001은 500을 빼 4501이다. `5000 4501`.</p></details></section>
+<section class="panel practice" id="practice"><h2>감각을 굳히는 연습</h2><p>먼저 종이에 예상 결과를 적고, 그 다음 코드를 바꾸어 실행해서 확인한다. 틀렸다면 틀린 이유가 학습 기록이다.</p><ol class="tasks"><li>5000원 이상 500원 할인 규칙 함수를 작성한다.</li><li>할인율 대신 고정 할인액을 쓰는 이유를 초보자 입장에서 적는다.</li><li>어제의 장바구니 total에 함수를 연결한다.</li></ol><details><summary>연습 확인 포인트</summary><p>금요일에는 10000원 경계값을 반드시 테스트한다.</p></details></section>
+<section class="panel project" id="project"><div class="badges"><span class="badge gold">금요일 작품으로 연결</span></div><h2>금요일: 장바구니 할인 계산기</h2><p>총액 계산 뒤 자동 금액 할인을 적용하는 함수를 결합한다.</p><h3>오늘 저장할 것</h3><div class="checkpoint"><div class="check">할인 함수 실행</div><div class="check">9999/10000 경계 테스트</div></div></section>
+</article></div>
+<nav class="footer-nav"><a href="06주차_02일.html">← 이전 수업</a><a href="06주차_04일.html">다음 수업 →</a></nav>
+</main></body></html>

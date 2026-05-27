@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>2주차 2일 - 선택 번호로 가격 꺼내기</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="site-head"><a class="course" href="index.html">정보처리기사 준비 + 미니 쇼핑몰</a><nav><a href="index.html">전체 차시</a><a href="#project">오늘 산출물</a></nav></header>
+<main class="page">
+<section class="hero"><div class="badges"><span class="badge ">C</span><span class="badge gold">2주차 2일차</span><span class="badge gray">C 배열 조건</span></div><h1>선택 번호로 가격 꺼내기</h1><p>손님이 메뉴를 선택하면 배열의 올바른 칸에서 가격을 찾아 수량과 곱한다.</p></section>
+<div class="lesson-grid"><aside class="side"><strong>2주차 2일차</strong><a href="#goals">오늘의 목표</a><a href="#flow">4시간 흐름</a><a href="#sense">감각으로 이해하기</a><a href="#typing">직접 따라치기</a><a href="#trace">기사형 코드 추적</a><a href="#practice">손으로 푸는 연습</a><a href="#project">금요일 프로젝트 연결</a><div class="move"><a href="02주차_01일.html">이전</a><a href="02주차_03일.html">다음</a></div></aside><article class="content">
+<section class="panel" id="goals"><h2>오늘의 목표</h2><ul class="goals"><li>메뉴 번호와 배열 인덱스를 변환한다.</li><li>수량을 곱해 소계를 구한다.</li><li>잘못된 번호를 막는다.</li></ul></section>
+<section class="panel" id="flow"><h2>오늘 4시간의 흐름</h2><div class="timeline"><div><b>1교시</b>개념을 그림과 코드로 이해</div><div><b>2교시</b>예제를 직접 입력하고 실행</div><div><b>3교시</b>금요일 작품 기능 한 조각 작성</div><div><b>4교시</b>값을 바꾸고 손 추적 연습</div></div></section>
+<section class="panel sense" id="sense"><h2>먼저 감각으로 이해하기</h2><h3>사람은 1번부터, 배열은 0번부터 센다</h3><p>화면에는 1. 떡볶이처럼 보여 주는 편이 자연스럽다. 그러나 첫 가격은 `prices[0]`에 있다.</p><p>따라서 손님 선택값 `menu`가 1이면 배열에서는 `menu - 1`칸을 꺼낸다.</p><div class="diagram"><span class="node"><strong>손님 선택</strong>menu=2</span><span class="arrow">→</span><span class="node"><strong>변환</strong>menu-1=1</span><span class="arrow">→</span><span class="node"><strong>배열</strong>prices[1]=2500</span><span class="arrow">→</span><span class="node"><strong>수량 3</strong>7500원</span></div><p class="note">손가락 실습: 메뉴 카드 번호는 1부터 붙이고, 뒤집은 카드 뒷면에 배열 인덱스 0부터를 적어 비교한다.</p></section>
+<section class="panel typing" id="typing"><h2>직접 따라치기</h2><div class="typing-body"><p>선택과 수량으로 한 주문의 소계를 출력한다.</p><h3>코드를 입력한 뒤 반드시 실행한다</h3></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int prices[3] = {3000, 2500, 2000};
+    int menu;
+    int quantity;
+
+    printf(&quot;1. 떡볶이  2. 김밥  3. 튀김\n&quot;);
+    printf(&quot;메뉴 번호와 수량: &quot;);
+    scanf(&quot;%d %d&quot;, &amp;menu, &amp;quantity);
+
+    if (menu &gt;= 1 &amp;&amp; menu &lt;= 3 &amp;&amp; quantity &gt; 0) {
+        printf(&quot;소계: %d원\n&quot;, prices[menu - 1] * quantity);
+    } else {
+        printf(&quot;잘못된 주문입니다.\n&quot;);
+    }
+    return 0;
+}</code></pre><div class="typing-body"><h3>실행 결과 예</h3><div class="output">1. 떡볶이  2. 김밥  3. 튀김
+메뉴 번호와 수량: 2 3
+소계: 7500원</div><h3>한 줄씩 읽어 보기</h3><ol class="tasks"><li>메뉴 2는 배열 인덱스 1로 바뀌어 김밥 가격 2500을 읽는다.</li><li>`&amp;&amp;`는 두 조건이 모두 참이어야 주문 계산으로 간다는 의미다.</li><li>메뉴 0을 입력하면 배열에 접근하기 전에 오류 문구로 빠진다.</li></ol><details><summary>입력한 뒤 바꾸어 볼 값</summary><p>입력 `3 4`, `0 2`, `1 0`의 출력 결과를 실행 전 표로 작성한다.</p></details></div></section>
+<section class="panel exam" id="trace"><h2>손으로 추적하는 문제</h2><p>유효성 검사를 먼저 하는 습관은 실무뿐 아니라 배열 범위 오류 이해에도 중요하다.</p><pre><code>int price[3] = {1000, 2000, 3000};
+int choice = 3;
+int count = 2;
+printf(&quot;%d&quot;, price[choice - 1] * count);</code></pre><p><strong>문제.</strong> 출력값은 얼마이며 읽은 배열 위치는 어디인가?</p><details><summary>정답과 풀이 열기</summary><p>`choice - 1`은 2이며 `price[2]`는 3000이다. 수량 2를 곱해 `6000`이 출력된다.</p></details></section>
+<section class="panel practice" id="practice"><h2>감각을 굳히는 연습</h2><p>먼저 종이에 예상 결과를 적고, 그 다음 코드를 바꾸어 실행해서 확인한다. 틀렸다면 틀린 이유가 학습 기록이다.</p><ol class="tasks"><li>메뉴 4개 버전을 작성하고 마지막 메뉴의 금액을 계산한다.</li><li>메뉴 번호가 유효하지 않으면 배열을 읽지 않는 조건을 작성한다.</li><li>`menu - 1`을 빼지 않은 코드에서 메뉴 3 선택이 왜 위험한지 말한다.</li></ol><details><summary>연습 확인 포인트</summary><p>선택 번호를 배열 번호로 바꾸는 한 줄이 쇼핑몰 상품 선택에도 그대로 이어진다.</p></details></section>
+<section class="panel project" id="project"><div class="badges"><span class="badge gold">금요일 작품으로 연결</span></div><h2>금요일: 분식집 주문 계산기</h2><p>메뉴 번호와 수량을 입력받아 소계를 만드는 기능을 저장한다.</p><h3>오늘 저장할 것</h3><div class="checkpoint"><div class="check">정상/오류 입력 각 1회 테스트</div><div class="check">메뉴 번호와 인덱스 차이 설명</div></div></section>
+</article></div>
+<nav class="footer-nav"><a href="02주차_01일.html">← 이전 수업</a><a href="02주차_03일.html">다음 수업 →</a></nav>
+</main></body></html>

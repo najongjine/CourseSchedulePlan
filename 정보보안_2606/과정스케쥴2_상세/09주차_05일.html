@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>9주차 5일 - 완성: 쇼핑몰 상품 목록 화면</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="site-head"><a class="course" href="index.html">정보처리기사 준비 + 미니 쇼핑몰</a><nav><a href="index.html">전체 차시</a><a href="#project">오늘 산출물</a></nav></header>
+<main class="page">
+<section class="hero"><div class="badges"><span class="badge ">React</span><span class="badge gold">9주차 5일차</span><span class="badge gray">화면 데이터 흐름</span></div><h1>완성: 쇼핑몰 상품 목록 화면</h1><p>제공된 React 뼈대 위에서 상점 제목, 상품 카드, 품절 표시와 담기 반응을 완성해 시연한다.</p></section>
+<div class="lesson-grid"><aside class="side"><strong>9주차 5일차</strong><a href="#goals">오늘의 목표</a><a href="#flow">4시간 흐름</a><a href="#sense">감각으로 이해하기</a><a href="#typing">직접 따라치기</a><a href="#trace">기사형 코드 추적</a><a href="#practice">손으로 푸는 연습</a><a href="#project">금요일 프로젝트 연결</a><div class="move"><a href="09주차_04일.html">이전</a><a href="10주차_01일.html">다음</a></div></aside><article class="content">
+<section class="panel" id="goals"><h2>오늘의 목표</h2><ul class="goals"><li>상품 목록 화면을 처음부터 재구성한다.</li><li>데이터가 카드로 변환되는 흐름을 설명한다.</li><li>다음 주 API 연결 지점을 찾는다.</li></ul></section>
+<section class="panel" id="flow"><h2>오늘 4시간의 흐름</h2><div class="timeline"><div><b>1교시</b>핵심 문법 미니 테스트와 손 추적</div><div><b>2교시</b>완성 코드를 기능별로 입력</div><div><b>3교시</b>실행, 오류 수정, 선택 기능</div><div><b>4교시</b>시연하고 자기 코드 설명</div></div></section>
+<section class="panel sense" id="sense"><h2>먼저 감각으로 이해하기</h2><h3>오늘 화면의 상품은 임시 목록, 다음 주에는 DB 목록</h3><p>지금은 `products` 배열이 파일 안에 직접 적혀 있다. 화면 구조를 배우기에는 충분하지만 새로고침해도 DB 변경과 연결되지 않는다.</p><p>다음 주에는 배열을 PostgreSQL에서 API로 받은 결과로 교체한다. 카드 컴포넌트는 거의 그대로 재사용한다.</p><div class="diagram"><span class="node"><strong>샘플 배열</strong>오늘</span><span class="arrow">→</span><span class="node"><strong>ProductCard</strong>재사용</span><span class="arrow">→</span><span class="node"><strong>API 응답</strong>다음 주</span><span class="arrow">→</span><span class="node"><strong>화면</strong>같은 카드</span></div><p class="note">손가락 실습: 오늘 배열에 적힌 상품과 7주차 DB 상품 표 사이에 다음 주 화살표를 그린다.</p></section>
+<section class="panel typing" id="typing"><h2>직접 따라치기</h2><div class="typing-body"><p>상품 데이터와 카드 코드를 한 파일로 합친 필수 버전이다. CSS는 교사 제공 파일을 사용한다.</p><h3>코드를 입력한 뒤 반드시 실행한다</h3></div><pre><code>function ProductCard({ name, price, stock }) {
+  return (
+    &lt;article className=&quot;product-card&quot;&gt;
+      &lt;h2&gt;{name}&lt;/h2&gt;
+      &lt;p&gt;{price.toLocaleString()}원&lt;/p&gt;
+      &lt;p&gt;{stock === 0 ? &quot;품절&quot; : `재고 ${stock}개`}&lt;/p&gt;
+      &lt;button disabled={stock === 0}&gt;담기&lt;/button&gt;
+    &lt;/article&gt;
+  );
+}
+
+const products = [
+  { id: 1, name: &quot;노트&quot;, price: 2000, stock: 5 },
+  { id: 2, name: &quot;펜&quot;, price: 1000, stock: 8 },
+  { id: 3, name: &quot;파일&quot;, price: 1500, stock: 0 },
+  { id: 4, name: &quot;스티커&quot;, price: 500, stock: 12 }
+];
+
+export default function App() {
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;우리 반 상점&lt;/h1&gt;
+      &lt;section className=&quot;products&quot;&gt;
+        {products.map(product =&gt; (
+          &lt;ProductCard key={product.id} {...product} /&gt;
+        ))}
+      &lt;/section&gt;
+    &lt;/main&gt;
+  );
+}</code></pre><div class="typing-body"><h3>실행 결과 예</h3><div class="output">우리 반 상점 제목 아래 상품 카드 4장 표시
+파일 상품만 품절 버튼으로 표시</div><h3>한 줄씩 읽어 보기</h3><ol class="tasks"><li>네 상품 객체가 map을 통과하며 같은 ProductCard 모양 네 장이 된다.</li><li>`{...product}`는 객체의 name, price, stock을 props로 전달하는 짧은 표기다.</li><li>품절 조건은 각 카드가 받은 stock 값으로 판단한다.</li></ol><details><summary>입력한 뒤 바꾸어 볼 값</summary><p>펼침 문법이 어렵다면 `name={product.name}` 방식으로 다시 적어 보고 같은 결과인지 확인한다.</p></details></div></section>
+<section class="panel exam" id="trace"><h2>손으로 추적하는 문제</h2><p>React는 기사 직접 범위보다 통합 경험을 위한 도구다. 배열/조건/함수 감각은 계속 활용한다.</p><pre><code>const products = [
+  { name: &quot;A&quot;, stock: 0 },
+  { name: &quot;B&quot;, stock: 2 }
+];
+const available = products.filter(p =&gt; p.stock &gt; 0);</code></pre><p><strong>문제.</strong> `available`에 남는 상품 이름은 무엇인가?</p><details><summary>정답과 풀이 열기</summary><p>stock이 0보다 큰 B만 남는다.</p></details></section>
+<section class="panel practice" id="practice"><h2>감각을 굳히는 연습</h2><p>먼저 종이에 예상 결과를 적고, 그 다음 코드를 바꾸어 실행해서 확인한다. 틀렸다면 틀린 이유가 학습 기록이다.</p><ol class="tasks"><li>상품 네 장이 표시되는지 확인한다.</li><li>품절 상품 버튼이 눌리지 않는지 확인한다.</li><li>샘플 배열을 API 응답으로 바꿀 위치에 표시를 붙인다.</li></ol><details><summary>연습 확인 포인트</summary><p>금요일 완성 화면을 저장한다. 다음 주 공통 API 뼈대가 준비되면 DB 상품으로 같은 카드를 그린다.</p></details></section>
+<section class="panel project" id="project"><div class="badges"><span class="badge gold">금요일 작품으로 연결</span></div><h2>제출 작품: 쇼핑몰 상품 목록 화면</h2><p>브라우저 시연과 컴포넌트 설명을 제출한다.</p><h3>오늘 저장할 것</h3><div class="checkpoint"><div class="check">동작하는 React 상품 화면</div><div class="check">배열 -&gt; 카드 흐름 설명</div></div></section>
+</article></div>
+<nav class="footer-nav"><a href="09주차_04일.html">← 이전 수업</a><a href="10주차_01일.html">다음 수업 →</a></nav>
+</main></body></html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>7주차 2일 - INSERT로 상품 행 넣기</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="site-head"><a class="course" href="index.html">정보처리기사 준비 + 미니 쇼핑몰</a><nav><a href="index.html">전체 차시</a><a href="#project">오늘 산출물</a></nav></header>
+<main class="page">
+<section class="hero"><div class="badges"><span class="badge ">PostgreSQL</span><span class="badge gold">7주차 2일차</span><span class="badge gray">SQL INSERT/SELECT</span></div><h1>INSERT로 상품 행 넣기</h1><p>테이블에 상품을 한 건씩 등록하고 SELECT로 저장된 결과를 확인한다.</p></section>
+<div class="lesson-grid"><aside class="side"><strong>7주차 2일차</strong><a href="#goals">오늘의 목표</a><a href="#flow">4시간 흐름</a><a href="#sense">감각으로 이해하기</a><a href="#typing">직접 따라치기</a><a href="#trace">기사형 코드 추적</a><a href="#practice">손으로 푸는 연습</a><a href="#project">금요일 프로젝트 연결</a><div class="move"><a href="07주차_01일.html">이전</a><a href="07주차_03일.html">다음</a></div></aside><article class="content">
+<section class="panel" id="goals"><h2>오늘의 목표</h2><ul class="goals"><li>INSERT 문을 작성한다.</li><li>자동 생성된 키를 구분한다.</li><li>SELECT 결과 표를 읽는다.</li></ul></section>
+<section class="panel" id="flow"><h2>오늘 4시간의 흐름</h2><div class="timeline"><div><b>1교시</b>개념을 그림과 코드로 이해</div><div><b>2교시</b>예제를 직접 입력하고 실행</div><div><b>3교시</b>금요일 작품 기능 한 조각 작성</div><div><b>4교시</b>값을 바꾸고 손 추적 연습</div></div></section>
+<section class="panel sense" id="sense"><h2>먼저 감각으로 이해하기</h2><h3>INSERT는 빈 표에 상품 카드를 한 줄 끼워 넣는 동작</h3><p>DB는 프로그램이 끝나도 행을 기억한다. 입력 SQL을 실행한 뒤 조회해야 실제로 어떤 값이 저장됐는지 보인다.</p><p>product_id는 DB가 정해 주므로 INSERT 열 목록에서 빼고 name, price, stock만 제공한다.</p><div class="diagram"><span class="node"><strong>INSERT</strong>콜라/1200/10</span><span class="arrow">→</span><span class="node"><strong>DB 번호</strong>1</span><span class="arrow">→</span><span class="node"><strong>행</strong>1 콜라 1200 10</span><span class="arrow">→</span><span class="node"><strong>SELECT</strong>표시</span></div><p class="note">손가락 실습: 어제 만든 빈 표 그림에 상품 카드 세 장을 한 행씩 추가한다.</p></section>
+<section class="panel typing" id="typing"><h2>직접 따라치기</h2><div class="typing-body"><p>세 상품을 입력한 뒤 모든 열을 조회한다.</p><h3>코드를 입력한 뒤 반드시 실행한다</h3></div><pre><code>INSERT INTO products (name, price, stock)
+VALUES ('콜라', 1200, 10);
+
+INSERT INTO products (name, price, stock)
+VALUES ('물', 800, 20);
+
+INSERT INTO products (name, price, stock)
+VALUES ('초콜릿', 1500, 8);
+
+SELECT product_id, name, price, stock
+FROM products;</code></pre><div class="typing-body"><h3>실행 결과 예</h3><div class="output"> product_id | name   | price | stock
+------------+--------+-------+------
+ 1          | 콜라   | 1200  | 10
+ 2          | 물     | 800   | 20
+ 3          | 초콜릿 | 1500  | 8</div><h3>한 줄씩 읽어 보기</h3><ol class="tasks"><li>INSERT 열 순서와 VALUES 값 순서가 맞아야 한다.</li><li>ID는 지정하지 않았지만 각 행에 서로 다른 번호가 생성된다.</li><li>SELECT는 저장된 행을 읽을 뿐 값을 바꾸지 않는다.</li></ol><details><summary>입력한 뒤 바꾸어 볼 값</summary><p>노트와 펜 상품을 두 건 더 INSERT하고 조회 결과의 행 수를 예상한다.</p></details></div></section>
+<section class="panel exam" id="trace"><h2>손으로 추적하는 문제</h2><p>SQL 결과 문제는 어떤 행이 생성되고 어떤 열이 표시되는지 표로 그린다.</p><pre><code>INSERT INTO products (name, price, stock)
+VALUES ('펜', 500, 4);
+
+SELECT name, price
+FROM products;</code></pre><p><strong>문제.</strong> 마지막 SELECT 결과에 보이는 열은 무엇이며, 새 행에는 어떤 값이 저장되는가?</p><details><summary>정답과 풀이 열기</summary><p>결과 화면에는 `name`, `price` 두 열만 보인다. 저장된 새 상품 행은 펜, 500, 재고 4와 자동 생성된 product_id를 가진다.</p></details></section>
+<section class="panel practice" id="practice"><h2>감각을 굳히는 연습</h2><p>먼저 종이에 예상 결과를 적고, 그 다음 코드를 바꾸어 실행해서 확인한다. 틀렸다면 틀린 이유가 학습 기록이다.</p><ol class="tasks"><li>직접 선택한 쇼핑몰 상품을 총 10개 등록한다.</li><li>가격과 재고를 잘못 바꾸어 입력한 행이 없는지 전체 조회한다.</li><li>조회 열 목록을 바꾸어 상품명만 표시한다.</li></ol><details><summary>연습 확인 포인트</summary><p>SQL을 실행할 때마다 INSERT가 다시 실행되면 중복 상품이 생긴다. 실행 구간을 구분하는 습관을 들인다.</p></details></section>
+<section class="panel project" id="project"><div class="badges"><span class="badge gold">금요일 작품으로 연결</span></div><h2>금요일: 작은 쇼핑몰 상품 DB</h2><p>상품 10건을 직접 등록하고 전체 조회 결과를 저장한다.</p><h3>오늘 저장할 것</h3><div class="checkpoint"><div class="check">INSERT 문 모음</div><div class="check">전체 상품 조회 결과</div></div></section>
+</article></div>
+<nav class="footer-nav"><a href="07주차_01일.html">← 이전 수업</a><a href="07주차_03일.html">다음 수업 →</a></nav>
+</main></body></html>

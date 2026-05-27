@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>11주차 5일 - 완성: 장바구니에서 주문 저장까지</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="site-head"><a class="course" href="index.html">정보처리기사 준비 + 미니 쇼핑몰</a><nav><a href="index.html">전체 차시</a><a href="#project">오늘 산출물</a></nav></header>
+<main class="page">
+<section class="hero"><div class="badges"><span class="badge ">React + API</span><span class="badge gold">11주차 5일차</span><span class="badge gray">통합/SQL</span></div><h1>완성: 장바구니에서 주문 저장까지</h1><p>상품 선택, 총액 확인, 주문자 입력, DB 저장과 SQL 확인까지 작은 구매 흐름을 시연한다.</p></section>
+<div class="lesson-grid"><aside class="side"><strong>11주차 5일차</strong><a href="#goals">오늘의 목표</a><a href="#flow">4시간 흐름</a><a href="#sense">감각으로 이해하기</a><a href="#typing">직접 따라치기</a><a href="#trace">기사형 코드 추적</a><a href="#practice">손으로 푸는 연습</a><a href="#project">금요일 프로젝트 연결</a><div class="move"><a href="11주차_04일.html">이전</a><a href="12주차_01일.html">다음</a></div></aside><article class="content">
+<section class="panel" id="goals"><h2>오늘의 목표</h2><ul class="goals"><li>주문 흐름 전체를 실행한다.</li><li>데이터가 저장되는 표를 설명한다.</li><li>입력 오류와 빈 장바구니를 검사한다.</li></ul></section>
+<section class="panel" id="flow"><h2>오늘 4시간의 흐름</h2><div class="timeline"><div><b>1교시</b>핵심 문법 미니 테스트와 손 추적</div><div><b>2교시</b>완성 코드를 기능별로 입력</div><div><b>3교시</b>실행, 오류 수정, 선택 기능</div><div><b>4교시</b>시연하고 자기 코드 설명</div></div></section>
+<section class="panel sense" id="sense"><h2>먼저 감각으로 이해하기</h2><h3>쇼핑몰의 구매 흐름이 처음 끝까지 이어지는 날</h3><p>화려한 결제 화면보다 중요한 것은 선택한 상품이 정확한 가격과 수량으로 주문표에 남는가이다.</p><p>오늘 시연은 화면과 SQL 결과를 함께 보여 주어 기능이 실제 저장으로 이어졌음을 확인한다.</p><div class="diagram"><span class="node"><strong>목록</strong>상품 선택</span><span class="arrow">→</span><span class="node"><strong>cart</strong>총액</span><span class="arrow">→</span><span class="node"><strong>POST</strong>주문</span><span class="arrow">→</span><span class="node"><strong>SQL</strong>내역 확인</span></div><p class="note">손가락 실습: 시연 전에 입력값, 예상 총액, 저장될 상세 행을 종이에 적고 실제 결과와 하나씩 비교한다.</p></section>
+<section class="panel typing" id="typing"><h2>직접 따라치기</h2><div class="typing-body"><p>주문 버튼 함수의 학생 이해 범위 핵심을 정리한다.</p><h3>코드를 입력한 뒤 반드시 실행한다</h3></div><pre><code>async function submitOrder() {
+  if (!customerName.trim() || cart.length === 0) {
+    alert(&quot;주문자와 상품을 확인하세요.&quot;);
+    return;
+  }
+  const order = {
+    customer_name: customerName,
+    items: cart.map(item =&gt; ({
+      product_id: item.product_id,
+      quantity: 1,
+      unit_price: item.price
+    }))
+  };
+  await fetch(&quot;http://localhost:8000/orders&quot;, {
+    method: &quot;POST&quot;,
+    headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
+    body: JSON.stringify(order)
+  });
+  setCart([]);
+  alert(&quot;주문이 저장되었습니다.&quot;);
+}</code></pre><div class="typing-body"><h3>실행 결과 예</h3><div class="output">장바구니에 상품 담기 -&gt; 총액 표시 -&gt; 이름 입력 -&gt; 주문 저장됨 알림 -&gt; 장바구니 비워짐</div><h3>한 줄씩 읽어 보기</h3><ol class="tasks"><li>검증을 통과한 요청만 서버로 전송된다.</li><li>주문 완료 뒤 화면 cart를 비우지만, DB orders와 order_items 데이터는 남아 있다.</li><li>따라서 저장 확인은 화면이 아니라 SQL JOIN 결과로 한다.</li></ol><details><summary>입력한 뒤 바꾸어 볼 값</summary><p>주문 완료 뒤 장바구니만 비어 있고 DB 주문은 남는 차이를 그림으로 표현한다.</p></details></div></section>
+<section class="panel exam" id="trace"><h2>손으로 추적하는 문제</h2><p>화면 상태와 영구 저장 데이터의 차이는 데이터 입출력과 DB 이해의 핵심이다.</p><pre><code>SELECT SUM(i.quantity * i.unit_price) AS total
+FROM orders o
+JOIN order_items i ON o.order_id = i.order_id
+WHERE o.customer_name = '민지';</code></pre><p><strong>문제.</strong> 이 조회는 무엇을 계산하는가?</p><details><summary>정답과 풀이 열기</summary><p>민지의 주문상세 행 금액들을 합쳐 저장된 구매 총액을 계산한다.</p></details></section>
+<section class="panel practice" id="practice"><h2>감각을 굳히는 연습</h2><p>먼저 종이에 예상 결과를 적고, 그 다음 코드를 바꾸어 실행해서 확인한다. 틀렸다면 틀린 이유가 학습 기록이다.</p><ol class="tasks"><li>상품 두 개를 담은 예상 총액을 적고 화면 총액과 맞춘다.</li><li>주문 후 JOIN 조회와 SUM 조회 결과를 확인한다.</li><li>빈 이름, 빈 장바구니 테스트를 기록한다.</li></ol><details><summary>연습 확인 포인트</summary><p>12주차에는 새 기능을 무리하게 추가하지 않고 오류 수정, 매출 조회, 설명에 집중한다.</p></details></section>
+<section class="panel project" id="project"><div class="badges"><span class="badge gold">금요일 작품으로 연결</span></div><h2>제출 작품: 장바구니 주문 저장</h2><p>구매 흐름이 작동하는 버전과 SQL 확인 결과를 제출한다.</p><h3>오늘 저장할 것</h3><div class="checkpoint"><div class="check">주문 저장 동작 화면</div><div class="check">주문 SQL 확인표</div></div></section>
+</article></div>
+<nav class="footer-nav"><a href="11주차_04일.html">← 이전 수업</a><a href="12주차_01일.html">다음 수업 →</a></nav>
+</main></body></html>
