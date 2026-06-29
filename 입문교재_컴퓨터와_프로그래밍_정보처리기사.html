@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>비전공자를 위한 컴퓨터와 프로그래밍 입문</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --paper: #ffffff;
+      --ink: #17202a;
+      --muted: #5d6878;
+      --line: #dce3ec;
+      --brand: #176b87;
+      --brand-dark: #0c4f66;
+      --accent: #d95f35;
+      --accent-soft: #fff0e9;
+      --green: #2f7d5c;
+      --green-soft: #eaf7f0;
+      --blue-soft: #eaf3ff;
+      --yellow-soft: #fff8dc;
+      --code-bg: #101820;
+      --code-ink: #e9f2f2;
+      --shadow: 0 18px 45px rgba(23, 32, 42, 0.09);
+      --radius: 8px;
+      --content: 1080px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+      line-height: 1.78;
+      word-break: keep-all;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      max-width: var(--content);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--brand-dark);
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--brand);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--muted);
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a {
+      white-space: nowrap;
+      padding: 6px 2px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--brand-dark);
+      border-bottom-color: var(--brand);
+    }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(23, 107, 135, 0.94), rgba(18, 32, 48, 0.94)),
+        radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.16), transparent 30%);
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: var(--content);
+      margin: 0 auto;
+      padding: 72px 20px 52px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 18px;
+    }
+
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+    }
+
+    .hero-panel svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    main {
+      max-width: var(--content);
+      margin: 0 auto;
+      padding: 36px 20px 80px;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 78px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .toc strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--brand-dark);
+    }
+
+    .toc a {
+      display: block;
+      padding: 7px 0;
+      color: var(--muted);
+      font-size: 14px;
+      border-bottom: 1px solid #edf1f5;
+    }
+
+    .toc a:last-child {
+      border-bottom: 0;
+    }
+
+    .toc a:hover {
+      color: var(--brand);
+    }
+
+    .article {
+      min-width: 0;
+    }
+
+    .section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin: 0 0 18px;
+      font-size: clamp(25px, 3vw, 34px);
+      line-height: 1.25;
+      letter-spacing: 0;
+      color: var(--brand-dark);
+    }
+
+    .section h3 {
+      margin: 28px 0 10px;
+      font-size: 21px;
+      line-height: 1.35;
+      color: #243447;
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #384656;
+    }
+
+    .callout {
+      margin: 22px 0;
+      padding: 18px 20px;
+      border-left: 5px solid var(--brand);
+      background: var(--blue-soft);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .callout.warn {
+      border-left-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .callout.good {
+      border-left-color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: #fff;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--brand-dark);
+    }
+
+    .visual {
+      margin: 24px 0;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfe;
+      overflow-x: auto;
+    }
+
+    .visual-title {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    svg text {
+      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", Arial, sans-serif;
+    }
+
+    pre {
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border-radius: var(--radius);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    code {
+      font-family: "Cascadia Code", "Consolas", monospace;
+    }
+
+    .inline-code {
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: #edf2f7;
+      color: #213547;
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 0.92em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 15px;
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 11px 12px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf5f8;
+      color: var(--brand-dark);
+      text-align: left;
+    }
+
+    ul, ol {
+      padding-left: 23px;
+    }
+
+    li + li {
+      margin-top: 4px;
+    }
+
+    .exercise {
+      background: var(--yellow-soft);
+      border: 1px solid #eadc9f;
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .exercise h3 {
+      margin-top: 0;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #eef4f7;
+      color: var(--brand-dark);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .footer {
+      padding: 34px 20px 44px;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding-top: 52px;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+
+      .grid.two,
+      .grid.three,
+      .grid.four {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .section {
+        padding: 22px;
+      }
+
+      .hero p,
+      .lead {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="상단 이동">
+      <a class="brand" href="#top">
+        <span class="brand-mark">IT</span>
+        <span>컴퓨터와 프로그래밍 입문</span>
+      </a>
+      <div class="nav-links">
+        <a href="#history">컴퓨터</a>
+        <a href="#von-neumann">폰 노이만</a>
+        <a href="#language">언어</a>
+        <a href="#work">실무</a>
+        <a href="#exam">정보처리기사</a>
+        <a href="#basic">기초 문법</a>
+        <a href="#practice">과제</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">국비학원 비전공자 대상 입문 교재</span>
+        <h1>비전공자를 위한 컴퓨터와 프로그래밍 입문</h1>
+        <p>
+          컴퓨터가 왜 등장했는지, 폰 노이만 구조가 왜 중요한지, 프로그래밍 언어는 왜 필요한지,
+          그리고 정보처리기사가 실제 개발 흐름과 어떻게 연결되는지 한 번에 잡아봅니다.
+        </p>
+        <div class="tag-list" aria-label="핵심 주제">
+          <span class="tag">컴퓨터 역사</span>
+          <span class="tag">폰 노이만 구조</span>
+          <span class="tag">프로그래밍 언어</span>
+          <span class="tag">개발 실무</span>
+          <span class="tag">정보처리기사</span>
+        </div>
+      </div>
+
+      <div class="hero-panel" aria-label="학습 흐름 시각화">
+        <svg viewBox="0 0 520 360" role="img" aria-labelledby="hero-title">
+          <title id="hero-title">컴퓨터 기초에서 개발 프로젝트까지 이어지는 학습 흐름</title>
+          <defs>
+            <marker id="arrow-white" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#ffffff"></path>
+            </marker>
+          </defs>
+          <rect x="24" y="28" width="150" height="70" rx="8" fill="#ffffff" opacity="0.95"></rect>
+          <text x="99" y="58" text-anchor="middle" font-size="17" font-weight="800" fill="#0c4f66">컴퓨터</text>
+          <text x="99" y="81" text-anchor="middle" font-size="13" fill="#52606d">계산과 저장</text>
+
+          <rect x="306" y="28" width="174" height="70" rx="8" fill="#ffffff" opacity="0.95"></rect>
+          <text x="393" y="58" text-anchor="middle" font-size="17" font-weight="800" fill="#0c4f66">폰 노이만 구조</text>
+          <text x="393" y="81" text-anchor="middle" font-size="13" fill="#52606d">명령을 저장하고 실행</text>
+
+          <rect x="169" y="145" width="184" height="76" rx="8" fill="#fff0e9"></rect>
+          <text x="261" y="177" text-anchor="middle" font-size="18" font-weight="800" fill="#973b1d">프로그래밍 언어</text>
+          <text x="261" y="202" text-anchor="middle" font-size="13" fill="#664034">사람의 생각을 명령으로 번역</text>
+
+          <rect x="24" y="268" width="174" height="64" rx="8" fill="#eaf7f0"></rect>
+          <text x="111" y="298" text-anchor="middle" font-size="17" font-weight="800" fill="#2f7d5c">개발 실무</text>
+          <text x="111" y="319" text-anchor="middle" font-size="13" fill="#3c6855">화면, 서버, DB 연결</text>
+
+          <rect x="322" y="268" width="158" height="64" rx="8" fill="#eaf3ff"></rect>
+          <text x="401" y="298" text-anchor="middle" font-size="17" font-weight="800" fill="#176b87">정보처리기사</text>
+          <text x="401" y="319" text-anchor="middle" font-size="13" fill="#48606f">프로젝트 전체 지도</text>
+
+          <line x1="176" y1="64" x2="297" y2="64" stroke="#ffffff" stroke-width="4" marker-end="url(#arrow-white)"></line>
+          <line x1="365" y1="100" x2="300" y2="139" stroke="#ffffff" stroke-width="4" marker-end="url(#arrow-white)"></line>
+          <line x1="154" y1="100" x2="217" y2="139" stroke="#ffffff" stroke-width="4" marker-end="url(#arrow-white)"></line>
+          <line x1="225" y1="224" x2="142" y2="262" stroke="#ffffff" stroke-width="4" marker-end="url(#arrow-white)"></line>
+          <line x1="300" y1="224" x2="373" y2="262" stroke="#ffffff" stroke-width="4" marker-end="url(#arrow-white)"></line>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <aside class="toc" aria-label="문서 목차">
+      <strong>목차</strong>
+      <a href="#goal">이 교재의 목표</a>
+      <a href="#history">1장. 컴퓨터의 등장</a>
+      <a href="#von-neumann">2장. 폰 노이만 모델</a>
+      <a href="#language">3장. 프로그래밍 언어</a>
+      <a href="#many-languages">4장. 언어가 많은 이유</a>
+      <a href="#work">5장. 실무에서 해결하는 문제</a>
+      <a href="#exam">6장. 정보처리기사</a>
+      <a href="#basic">7장. 기초와 실무 연결</a>
+      <a href="#stuck">8장. 초보자가 막히는 지점</a>
+      <a href="#practice">9장. 미니 과제</a>
+      <a href="#summary">10장. 핵심 정리</a>
+    </aside>
+
+    <article class="article">
+      <section class="section" id="goal">
+        <h2>이 교재의 목표</h2>
+        <p class="lead">
+          이 교재는 프로그래밍을 처음 배우는 사람이 “왜 이런 것을 배우는지”부터 이해하도록 돕기 위해 작성되었습니다.
+          문법을 외우기 전에 컴퓨터, 언어, 개발 과정의 큰 그림을 먼저 잡는 것이 목표입니다.
+        </p>
+        <div class="callout good">
+          <strong>핵심 관점</strong>
+          <p>
+            프로그래밍은 코드를 따라 치는 기술만이 아닙니다. 사람이 해결하려는 문제를 컴퓨터가 실행할 수 있는
+            절차로 바꾸는 사고방식입니다.
+          </p>
+        </div>
+        <div class="grid three">
+          <div class="mini-card">
+            <strong>왜 배우는가</strong>
+            컴퓨터가 어떤 방식으로 명령을 실행하는지 알면 문법이 덜 낯설어집니다.
+          </div>
+          <div class="mini-card">
+            <strong>무엇을 배우는가</strong>
+            컴퓨터 구조, 프로그래밍 언어, 개발 실무, 정보처리기사의 연결을 배웁니다.
+          </div>
+          <div class="mini-card">
+            <strong>어떻게 써먹는가</strong>
+            작은 프로그램과 프로젝트를 만들 때 필요한 판단 기준을 얻습니다.
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="history">
+        <h2>1장. 컴퓨터는 왜 만들어졌을까?</h2>
+        <h3>컴퓨터는 원래 “계산하는 사람”이었다</h3>
+        <p>
+          오늘날 컴퓨터라고 하면 노트북, 데스크톱, 스마트폰, 서버를 떠올립니다. 하지만 원래 computer라는 말은
+          기계가 아니라 “계산하는 사람”을 뜻했습니다. 천문, 항해, 세금, 군사, 통계 계산을 사람이 직접 하던 시대에는
+          계산량이 많고 실수가 잦았습니다.
+        </p>
+        <p>
+          그래서 빠르고 정확하게 계산하는 기계가 필요해졌습니다. 컴퓨터는 처음부터 유튜브나 게임을 위해 만들어진 것이 아니라,
+          대량의 계산을 빠르게 처리하기 위해 등장했습니다.
+        </p>
+
+        <div class="visual">
+          <p class="visual-title">시각화: 계산 도구에서 범용 컴퓨터로</p>
+          <svg viewBox="0 0 760 190" width="760" height="190" role="img" aria-label="컴퓨터 역사 타임라인">
+            <defs>
+              <marker id="arrow-brand" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#176b87"></path>
+              </marker>
+            </defs>
+            <line x1="70" y1="95" x2="690" y2="95" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-brand)"></line>
+            <g>
+              <circle cx="90" cy="95" r="11" fill="#d95f35"></circle>
+              <text x="90" y="45" text-anchor="middle" font-size="15" font-weight="800" fill="#17202a">손계산</text>
+              <text x="90" y="66" text-anchor="middle" font-size="12" fill="#5d6878">사람이 직접 계산</text>
+            </g>
+            <g>
+              <circle cx="250" cy="95" r="11" fill="#d95f35"></circle>
+              <text x="250" y="142" text-anchor="middle" font-size="15" font-weight="800" fill="#17202a">기계식 계산기</text>
+              <text x="250" y="163" text-anchor="middle" font-size="12" fill="#5d6878">반복 계산 보조</text>
+            </g>
+            <g>
+              <circle cx="430" cy="95" r="11" fill="#d95f35"></circle>
+              <text x="430" y="45" text-anchor="middle" font-size="15" font-weight="800" fill="#17202a">초기 전자식 컴퓨터</text>
+              <text x="430" y="66" text-anchor="middle" font-size="12" fill="#5d6878">빠른 계산</text>
+            </g>
+            <g>
+              <circle cx="620" cy="95" r="11" fill="#2f7d5c"></circle>
+              <text x="620" y="142" text-anchor="middle" font-size="15" font-weight="800" fill="#17202a">현대 컴퓨터</text>
+              <text x="620" y="163" text-anchor="middle" font-size="12" fill="#5d6878">저장, 판단, 통신, 출력</text>
+            </g>
+          </svg>
+        </div>
+
+        <h3>계산기와 컴퓨터의 차이</h3>
+        <p>
+          계산기는 정해진 계산을 빠르게 해줍니다. 그러나 컴퓨터는 명령을 저장해두고 조건 판단, 반복 작업,
+          데이터 저장, 통신, 화면 출력까지 수행합니다.
+        </p>
+        <pre><code>사용자가 로그인했는가?
+로그인했다면 메인 화면을 보여준다.
+로그인하지 않았다면 로그인 화면으로 보낸다.
+장바구니에 상품이 있는가?
+있다면 결제 금액을 계산한다.</code></pre>
+        <p>
+          컴퓨터는 “명령을 저장해두고 순서대로 실행할 수 있는 범용 기계”입니다.
+        </p>
+
+        <h3>컴퓨터의 핵심 능력</h3>
+        <div class="grid four">
+          <div class="mini-card"><strong>계산</strong>복잡한 숫자 계산을 빠르게 수행합니다.</div>
+          <div class="mini-card"><strong>반복</strong>지치지 않고 같은 작업을 반복합니다.</div>
+          <div class="mini-card"><strong>저장</strong>많은 데이터를 저장하고 다시 꺼냅니다.</div>
+          <div class="mini-card"><strong>판단</strong>정해진 조건에 따라 다른 동작을 합니다.</div>
+        </div>
+      </section>
+
+      <section class="section" id="von-neumann">
+        <h2>2장. 폰 노이만 모델은 왜 등장했을까?</h2>
+        <h3>초기 컴퓨터의 문제</h3>
+        <p>
+          초기 컴퓨터는 작업을 바꾸려면 배선을 바꾸거나 스위치를 다시 설정해야 했습니다. 요리를 바꿀 때마다
+          주방 구조를 뜯어고쳐야 하는 식당과 비슷했습니다.
+        </p>
+        <div class="callout">
+          <strong>저장 프로그램 방식</strong>
+          <p>
+            프로그램도 데이터처럼 메모리에 저장하자는 아이디어입니다. 이 덕분에 컴퓨터는 하드웨어를 매번 바꾸지 않고
+            프로그램만 바꿔 여러 작업을 수행할 수 있게 되었습니다.
+          </p>
+        </div>
+
+        <div class="visual">
+          <p class="visual-title">시각화: 폰 노이만 구조</p>
+          <svg viewBox="0 0 820 430" width="820" height="430" role="img" aria-label="폰 노이만 구조 다이어그램">
+            <defs>
+              <marker id="arrow-vn" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#176b87"></path>
+              </marker>
+            </defs>
+            <rect x="302" y="56" width="216" height="110" rx="8" fill="#eaf3ff" stroke="#176b87" stroke-width="2"></rect>
+            <text x="410" y="101" text-anchor="middle" font-size="26" font-weight="900" fill="#0c4f66">CPU</text>
+            <text x="410" y="130" text-anchor="middle" font-size="14" fill="#48606f">명령어 해석과 실행</text>
+
+            <rect x="302" y="250" width="216" height="110" rx="8" fill="#fff0e9" stroke="#d95f35" stroke-width="2"></rect>
+            <text x="410" y="295" text-anchor="middle" font-size="26" font-weight="900" fill="#973b1d">메모리</text>
+            <text x="410" y="324" text-anchor="middle" font-size="14" fill="#664034">프로그램과 데이터 저장</text>
+
+            <rect x="42" y="250" width="160" height="86" rx="8" fill="#eaf7f0" stroke="#2f7d5c" stroke-width="2"></rect>
+            <text x="122" y="287" text-anchor="middle" font-size="20" font-weight="900" fill="#2f7d5c">입력 장치</text>
+            <text x="122" y="313" text-anchor="middle" font-size="13" fill="#3c6855">키보드, 마우스</text>
+
+            <rect x="618" y="250" width="160" height="86" rx="8" fill="#eaf7f0" stroke="#2f7d5c" stroke-width="2"></rect>
+            <text x="698" y="287" text-anchor="middle" font-size="20" font-weight="900" fill="#2f7d5c">출력 장치</text>
+            <text x="698" y="313" text-anchor="middle" font-size="13" fill="#3c6855">모니터, 스피커</text>
+
+            <rect x="302" y="376" width="216" height="38" rx="8" fill="#f7f8fb" stroke="#8d99a6" stroke-width="2"></rect>
+            <text x="410" y="401" text-anchor="middle" font-size="15" font-weight="800" fill="#52606d">보조 저장 장치: SSD, HDD</text>
+
+            <line x1="410" y1="168" x2="410" y2="241" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-vn)"></line>
+            <line x1="385" y1="250" x2="385" y2="177" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-vn)"></line>
+            <line x1="204" y1="293" x2="293" y2="293" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-vn)"></line>
+            <line x1="520" y1="293" x2="609" y2="293" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-vn)"></line>
+            <line x1="410" y1="361" x2="410" y2="374" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-vn)"></line>
+          </svg>
+        </div>
+
+        <h3>CPU의 기본 동작</h3>
+        <p>CPU는 보통 세 단계로 명령을 처리합니다.</p>
+        <div class="grid three">
+          <div class="mini-card"><strong>1. Fetch</strong>메모리에서 명령어를 가져옵니다.</div>
+          <div class="mini-card"><strong>2. Decode</strong>명령어가 무슨 뜻인지 해석합니다.</div>
+          <div class="mini-card"><strong>3. Execute</strong>해석한 명령어를 실행합니다.</div>
+        </div>
+        <pre><code>total = 10 + 20
+print(total)</code></pre>
+        <p>
+          이 두 줄의 코드도 컴퓨터 내부에서는 값을 준비하고, 더하고, 저장하고, 출력 기능으로 보내는 작은 명령들의 묶음입니다.
+        </p>
+
+        <h3>왜 아직도 폰 노이만 구조를 쓸까?</h3>
+        <p>
+          폰 노이만 구조는 범용성이 좋고, 구조가 비교적 단순하며, 운영체제와 프로그래밍 언어와 하드웨어 산업이 이 틀을
+          기반으로 발전했기 때문에 여전히 중요합니다.
+        </p>
+        <div class="callout warn">
+          <strong>폰 노이만 병목</strong>
+          <p>
+            CPU가 아무리 빨라도 메모리에서 데이터를 가져오는 속도가 느리면 전체 성능이 떨어집니다. 현대 컴퓨터는 캐시,
+            멀티코어, GPU, 병렬 처리 등으로 이 문제를 줄입니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="language">
+        <h2>3장. 프로그래밍 언어는 왜 필요할까?</h2>
+        <h3>컴퓨터가 직접 이해하는 언어</h3>
+        <p>
+          컴퓨터는 최종적으로 0과 1로 표현되는 기계어를 실행합니다. 사람이 이진수만 보고 프로그램을 작성하기는 매우 어렵습니다.
+          그래서 사람이 읽기 쉬운 방식으로 명령을 표현하는 프로그래밍 언어가 등장했습니다.
+        </p>
+        <pre><code>10110000 01100001</code></pre>
+
+        <div class="visual">
+          <p class="visual-title">시각화: 사람이 읽는 코드가 실행되는 과정</p>
+          <svg viewBox="0 0 820 210" width="820" height="210" role="img" aria-label="프로그래밍 언어 번역 과정">
+            <defs>
+              <marker id="arrow-lang" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#176b87"></path>
+              </marker>
+            </defs>
+            <rect x="42" y="62" width="190" height="88" rx="8" fill="#eaf7f0" stroke="#2f7d5c" stroke-width="2"></rect>
+            <text x="137" y="97" text-anchor="middle" font-size="19" font-weight="900" fill="#2f7d5c">사람이 읽는 코드</text>
+            <text x="137" y="124" text-anchor="middle" font-size="14" fill="#3c6855">print("Hello")</text>
+
+            <rect x="315" y="62" width="190" height="88" rx="8" fill="#fff0e9" stroke="#d95f35" stroke-width="2"></rect>
+            <text x="410" y="97" text-anchor="middle" font-size="19" font-weight="900" fill="#973b1d">번역 도구</text>
+            <text x="410" y="124" text-anchor="middle" font-size="14" fill="#664034">컴파일러 / 인터프리터</text>
+
+            <rect x="588" y="62" width="190" height="88" rx="8" fill="#eaf3ff" stroke="#176b87" stroke-width="2"></rect>
+            <text x="683" y="97" text-anchor="middle" font-size="19" font-weight="900" fill="#0c4f66">실행 가능한 명령</text>
+            <text x="683" y="124" text-anchor="middle" font-size="14" fill="#48606f">CPU가 처리</text>
+
+            <line x1="238" y1="106" x2="307" y2="106" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-lang)"></line>
+            <line x1="512" y1="106" x2="580" y2="106" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-lang)"></line>
+          </svg>
+        </div>
+
+        <h3>왜 자연어로 명령하지 않을까?</h3>
+        <p>
+          사람의 말은 편하지만 애매합니다. “적당히 큰 숫자를 찾아줘”라고 말하면 사람은 대충 이해할 수 있지만,
+          컴퓨터는 “얼마 이상인지”, “어디에서 찾는지”, “결과가 여러 개면 어떻게 할지”를 알 수 없습니다.
+        </p>
+        <div class="callout">
+          <strong>프로그래밍 언어의 역할</strong>
+          <p>
+            프로그래밍 언어는 애매함을 줄이기 위해 엄격한 문법과 의미를 가진 약속입니다. 컴퓨터는 눈치가 없지만,
+            정확하게 말하면 지치지 않고 실행합니다.
+          </p>
+        </div>
+
+        <h3>프로그래밍은 절차를 설명하는 일</h3>
+        <p>라면 끓이기를 컴퓨터에게 시킨다면 “적당히”라는 표현을 더 구체적인 단계로 바꾸어야 합니다.</p>
+        <pre><code>냄비에 물 550ml를 넣는다.
+물이 끓을 때까지 기다린다.
+면을 넣는다.
+스프를 넣는다.
+4분 동안 끓인다.
+불을 끈다.</code></pre>
+      </section>
+
+      <section class="section" id="many-languages">
+        <h2>4장. 왜 프로그래밍 언어는 이렇게 많을까?</h2>
+        <p>
+          모든 상황에 완벽한 언어는 없습니다. 개발하는 대상과 목적이 다르기 때문에 언어도 다양해졌습니다.
+          어떤 언어는 속도가 중요하고, 어떤 언어는 안전성이 중요하고, 어떤 언어는 빠른 개발과 쉬운 문법이 중요합니다.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>언어</th>
+              <th>주요 특징</th>
+              <th>많이 쓰이는 분야</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>C</td>
+              <td>하드웨어에 가깝고 빠르지만 메모리 관리가 어렵습니다.</td>
+              <td>운영체제, 임베디드, 시스템 프로그래밍</td>
+            </tr>
+            <tr>
+              <td>C++</td>
+              <td>C의 성능에 객체지향과 추상화 기능을 더했습니다.</td>
+              <td>게임 엔진, 그래픽스, 고성능 시스템</td>
+            </tr>
+            <tr>
+              <td>C#</td>
+              <td>도구 지원이 좋고 Microsoft 생태계와 잘 맞습니다.</td>
+              <td>Windows 앱, 기업 시스템, Unity</td>
+            </tr>
+            <tr>
+              <td>Java</td>
+              <td>기업용 서버 개발에서 널리 쓰이며 생태계가 큽니다.</td>
+              <td>Spring 서버, 공공, 금융, SI</td>
+            </tr>
+            <tr>
+              <td>JavaScript</td>
+              <td>웹 브라우저에서 실행되는 대표 언어입니다.</td>
+              <td>웹 프론트엔드, Node.js 서버</td>
+            </tr>
+            <tr>
+              <td>TypeScript</td>
+              <td>JavaScript에 타입 시스템을 더해 협업에 유리합니다.</td>
+              <td>대규모 웹 프론트엔드</td>
+            </tr>
+            <tr>
+              <td>Python</td>
+              <td>문법이 간결하고 생산성이 좋습니다.</td>
+              <td>입문, 자동화, 데이터 분석, AI, 웹</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="visual">
+          <p class="visual-title">시각화: 언어별 대표 위치</p>
+          <svg viewBox="0 0 820 360" width="820" height="360" role="img" aria-label="프로그래밍 언어 사용 분야 지도">
+            <line x1="90" y1="292" x2="730" y2="292" stroke="#8d99a6" stroke-width="2"></line>
+            <line x1="90" y1="292" x2="90" y2="54" stroke="#8d99a6" stroke-width="2"></line>
+            <text x="410" y="334" text-anchor="middle" font-size="14" font-weight="800" fill="#52606d">하드웨어 가까움 ← 실행 환경 → 사람 표현 가까움</text>
+            <text x="26" y="175" transform="rotate(-90 26 175)" text-anchor="middle" font-size="14" font-weight="800" fill="#52606d">특정 분야 특화 ↑</text>
+            <g>
+              <circle cx="145" cy="237" r="30" fill="#eaf3ff" stroke="#176b87" stroke-width="2"></circle>
+              <text x="145" y="243" text-anchor="middle" font-size="17" font-weight="900" fill="#0c4f66">C</text>
+            </g>
+            <g>
+              <circle cx="230" cy="178" r="34" fill="#eaf3ff" stroke="#176b87" stroke-width="2"></circle>
+              <text x="230" y="184" text-anchor="middle" font-size="17" font-weight="900" fill="#0c4f66">C++</text>
+            </g>
+            <g>
+              <circle cx="410" cy="150" r="34" fill="#eaf7f0" stroke="#2f7d5c" stroke-width="2"></circle>
+              <text x="410" y="156" text-anchor="middle" font-size="17" font-weight="900" fill="#2f7d5c">Java</text>
+            </g>
+            <g>
+              <circle cx="490" cy="205" r="34" fill="#eaf7f0" stroke="#2f7d5c" stroke-width="2"></circle>
+              <text x="490" y="211" text-anchor="middle" font-size="17" font-weight="900" fill="#2f7d5c">C#</text>
+            </g>
+            <g>
+              <circle cx="590" cy="113" r="42" fill="#fff0e9" stroke="#d95f35" stroke-width="2"></circle>
+              <text x="590" y="119" text-anchor="middle" font-size="17" font-weight="900" fill="#973b1d">TS/JS</text>
+            </g>
+            <g>
+              <circle cx="660" cy="230" r="38" fill="#fff8dc" stroke="#d1a840" stroke-width="2"></circle>
+              <text x="660" y="236" text-anchor="middle" font-size="17" font-weight="900" fill="#765a10">Python</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="callout good">
+          <strong>초보자에게 중요한 결론</strong>
+          <p>
+            어떤 언어가 최고인지보다, 하나의 언어로 변수, 조건문, 반복문, 함수, 자료구조, 객체, 예외 처리,
+            파일 처리, 데이터베이스 연결의 흐름을 익히는 것이 먼저입니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <h2>5장. 프로그래밍 언어가 실제로 해결하는 문제</h2>
+        <h3>반복 업무를 자동화한다</h3>
+        <p>엑셀 파일 100개에서 매출 합계를 구해야 한다면 사람이 하나씩 열 필요 없이 프로그램으로 자동화할 수 있습니다.</p>
+        <pre><code>sales = [12000, 35000, 22000]
+total = sum(sales)
+print(total)</code></pre>
+
+        <h3>사용자의 요청을 처리한다</h3>
+        <p>웹 서비스는 사용자의 요청을 받고, 서버가 처리한 뒤, 다시 화면에 결과를 보여주는 구조로 동작합니다.</p>
+        <div class="visual">
+          <p class="visual-title">시각화: 웹 서비스 요청 흐름</p>
+          <svg viewBox="0 0 820 240" width="820" height="240" role="img" aria-label="프론트엔드 백엔드 데이터베이스 흐름">
+            <defs>
+              <marker id="arrow-flow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#176b87"></path>
+              </marker>
+            </defs>
+            <rect x="42" y="76" width="170" height="82" rx="8" fill="#eaf7f0" stroke="#2f7d5c" stroke-width="2"></rect>
+            <text x="127" y="111" text-anchor="middle" font-size="20" font-weight="900" fill="#2f7d5c">브라우저</text>
+            <text x="127" y="137" text-anchor="middle" font-size="13" fill="#3c6855">화면, 버튼, 입력</text>
+
+            <rect x="326" y="76" width="170" height="82" rx="8" fill="#eaf3ff" stroke="#176b87" stroke-width="2"></rect>
+            <text x="411" y="111" text-anchor="middle" font-size="20" font-weight="900" fill="#0c4f66">백엔드 서버</text>
+            <text x="411" y="137" text-anchor="middle" font-size="13" fill="#48606f">규칙 처리, API</text>
+
+            <rect x="610" y="76" width="170" height="82" rx="8" fill="#fff0e9" stroke="#d95f35" stroke-width="2"></rect>
+            <text x="695" y="111" text-anchor="middle" font-size="20" font-weight="900" fill="#973b1d">데이터베이스</text>
+            <text x="695" y="137" text-anchor="middle" font-size="13" fill="#664034">저장, 조회</text>
+
+            <line x1="214" y1="104" x2="318" y2="104" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-flow)"></line>
+            <text x="266" y="88" text-anchor="middle" font-size="13" fill="#52606d">요청</text>
+            <line x1="324" y1="132" x2="220" y2="132" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-flow)"></line>
+            <text x="266" y="158" text-anchor="middle" font-size="13" fill="#52606d">응답</text>
+            <line x1="498" y1="104" x2="602" y2="104" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-flow)"></line>
+            <line x1="608" y1="132" x2="504" y2="132" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-flow)"></line>
+          </svg>
+        </div>
+
+        <h3>현실의 규칙을 코드로 바꾼다</h3>
+        <p>쇼핑몰 쿠폰 규칙처럼 현실의 정책은 조건문과 데이터 처리로 바뀝니다.</p>
+        <pre><code>price = 60000
+is_discounted_item = False
+
+if price >= 50000 and not is_discounted_item:
+    price = price - 5000
+
+print(price)</code></pre>
+      </section>
+
+      <section class="section" id="exam">
+        <h2>6장. 정보처리기사는 왜 나왔을까?</h2>
+        <p>
+          개발자는 코드만 쓰는 사람이 아닙니다. 요구사항을 이해하고, 구조를 설계하고, 데이터를 저장하고,
+          테스트하고, 보안을 고려하고, 문서를 작성하며 협업합니다. 정보처리기사는 이런 전반적인 IT 시스템 개발과
+          운영 능력을 국가기술자격 형태로 정리한 자격입니다.
+        </p>
+        <div class="callout">
+          <strong>정보처리기사가 말하고 싶은 것</strong>
+          <p>
+            소프트웨어는 감으로 만드는 것이 아니라 요구사항 분석, 설계, 구현, 테스트, 운영이라는 절차를 통해 만들어야 합니다.
+          </p>
+        </div>
+
+        <div class="visual">
+          <p class="visual-title">시각화: 정보처리기사와 프로젝트 흐름</p>
+          <svg viewBox="0 0 820 320" width="820" height="320" role="img" aria-label="정보처리기사 학습 범위와 프로젝트 흐름">
+            <defs>
+              <marker id="arrow-exam" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#176b87"></path>
+              </marker>
+            </defs>
+            <g fill="#ffffff" stroke="#176b87" stroke-width="2">
+              <rect x="38" y="92" width="124" height="72" rx="8"></rect>
+              <rect x="188" y="92" width="124" height="72" rx="8"></rect>
+              <rect x="338" y="92" width="124" height="72" rx="8"></rect>
+              <rect x="488" y="92" width="124" height="72" rx="8"></rect>
+              <rect x="638" y="92" width="124" height="72" rx="8"></rect>
+            </g>
+            <text x="100" y="122" text-anchor="middle" font-size="16" font-weight="900" fill="#0c4f66">요구사항</text>
+            <text x="100" y="145" text-anchor="middle" font-size="12" fill="#52606d">무엇을 만들까</text>
+            <text x="250" y="122" text-anchor="middle" font-size="16" font-weight="900" fill="#0c4f66">설계</text>
+            <text x="250" y="145" text-anchor="middle" font-size="12" fill="#52606d">화면, DB, 구조</text>
+            <text x="400" y="122" text-anchor="middle" font-size="16" font-weight="900" fill="#0c4f66">구현</text>
+            <text x="400" y="145" text-anchor="middle" font-size="12" fill="#52606d">서버, API, SQL</text>
+            <text x="550" y="122" text-anchor="middle" font-size="16" font-weight="900" fill="#0c4f66">테스트</text>
+            <text x="550" y="145" text-anchor="middle" font-size="12" fill="#52606d">오류와 품질</text>
+            <text x="700" y="122" text-anchor="middle" font-size="16" font-weight="900" fill="#0c4f66">운영</text>
+            <text x="700" y="145" text-anchor="middle" font-size="12" fill="#52606d">배포, 보안</text>
+            <line x1="163" y1="128" x2="180" y2="128" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-exam)"></line>
+            <line x1="313" y1="128" x2="330" y2="128" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-exam)"></line>
+            <line x1="463" y1="128" x2="480" y2="128" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-exam)"></line>
+            <line x1="613" y1="128" x2="630" y2="128" stroke="#176b87" stroke-width="4" marker-end="url(#arrow-exam)"></line>
+            <rect x="148" y="216" width="524" height="56" rx="8" fill="#fff0e9" stroke="#d95f35" stroke-width="2"></rect>
+            <text x="410" y="250" text-anchor="middle" font-size="18" font-weight="900" fill="#973b1d">정보처리기사는 개발 프로젝트 전체를 보는 지도 역할을 한다</text>
+          </svg>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>주제</th>
+              <th>현장에서의 의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>요구사항 확인</td><td>무엇을 만들어야 하는지 정리합니다.</td></tr>
+            <tr><td>화면 설계</td><td>사용자가 볼 화면 흐름을 설계합니다.</td></tr>
+            <tr><td>데이터 입출력 구현</td><td>데이터 구조와 DB 연동을 이해합니다.</td></tr>
+            <tr><td>서버 프로그램 구현</td><td>실제 비즈니스 로직을 작성합니다.</td></tr>
+            <tr><td>애플리케이션 테스트</td><td>오류를 찾고 품질을 높입니다.</td></tr>
+            <tr><td>SQL 응용</td><td>데이터베이스를 조회하고 조작합니다.</td></tr>
+            <tr><td>소프트웨어 개발 보안</td><td>취약점을 줄입니다.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section" id="basic">
+        <h2>7장. 컴퓨터 기초와 개발 실무를 연결하기</h2>
+        <div class="grid two">
+          <div class="mini-card">
+            <strong>변수는 메모리와 연결된다</strong>
+            <p><span class="inline-code">age = 25</span>는 메모리 어딘가에 저장된 값을 <span class="inline-code">age</span>라는 이름으로 다루는 것입니다.</p>
+          </div>
+          <div class="mini-card">
+            <strong>조건문은 판단을 표현한다</strong>
+            <p>점수가 60점 이상이면 합격, 아니면 불합격처럼 현실의 규칙을 코드로 표현합니다.</p>
+          </div>
+          <div class="mini-card">
+            <strong>반복문은 자동화의 핵심이다</strong>
+            <p>사람은 반복 작업에 지치지만 컴퓨터는 지치지 않습니다. 반복문은 자동화의 출발점입니다.</p>
+          </div>
+          <div class="mini-card">
+            <strong>함수는 작업에 이름을 붙인다</strong>
+            <p>여러 줄의 작업을 하나의 이름으로 묶어 재사용하고, 큰 프로그램을 작은 단위로 나눕니다.</p>
+          </div>
+        </div>
+
+        <h3>객체는 관련된 데이터와 기능을 묶는 방법</h3>
+        <p>
+          회원에게는 이름, 이메일, 가입일 같은 데이터가 있고 로그인, 비밀번호 변경 같은 동작이 있습니다.
+          객체지향은 이런 데이터와 기능을 함께 묶어 프로그램을 구성하는 방식입니다.
+        </p>
+        <pre><code>class User {
+    String name;
+    String email;
+
+    void login() {
+        System.out.println(name + " 로그인");
+    }
+}</code></pre>
+      </section>
+
+      <section class="section" id="stuck">
+        <h2>8장. 비전공자가 자주 막히는 지점</h2>
+        <h3>“이해했다”와 “직접 쓸 수 있다”는 다르다</h3>
+        <p>
+          강의를 들을 때는 이해한 것 같지만 혼자 코드를 쓰려고 하면 손이 멈출 수 있습니다. 이것은 자연스러운 일입니다.
+          프로그래밍은 지식이면서 동시에 기술이기 때문에 직접 작성하고 실행하는 시간이 필요합니다.
+        </p>
+        <h3>에러는 실패가 아니라 대화다</h3>
+        <p>에러 메시지는 컴퓨터가 보내는 힌트입니다. 다음 순서로 확인해봅니다.</p>
+        <ol>
+          <li>에러가 난 파일은 어디인가?</li>
+          <li>몇 번째 줄인가?</li>
+          <li>에러 메시지의 핵심 단어는 무엇인가?</li>
+          <li>바로 위아래 코드에 오타가 있는가?</li>
+        </ol>
+        <div class="callout warn">
+          <strong>복붙은 나쁘지 않지만, 이해 없는 복붙은 위험하다</strong>
+          <p>
+            참고한 코드를 이해하고 자신의 문제에 맞게 바꿀 수 있어야 합니다. 입력, 출력, 바꿔야 할 부분,
+            에러가 날 수 있는 부분을 설명할 수 있어야 합니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="practice">
+        <h2>9장. 오늘 배운 내용 미니 과제</h2>
+        <div class="exercise">
+          <h3>과제 1. 컴퓨터 설명하기</h3>
+          <ol>
+            <li>컴퓨터와 계산기의 차이는 무엇인가?</li>
+            <li>컴퓨터가 사람보다 잘하는 일은 무엇인가?</li>
+            <li>사람이 컴퓨터보다 잘하는 일은 무엇인가?</li>
+          </ol>
+        </div>
+        <div class="exercise">
+          <h3>과제 2. 폰 노이만 구조 그리기</h3>
+          <p>CPU, 메모리, 입력 장치, 출력 장치, 보조 저장 장치를 포함해서 컴퓨터 구조를 그려보고 각 역할을 한 문장씩 적어봅니다.</p>
+        </div>
+        <div class="exercise">
+          <h3>과제 3. 일상 절차를 프로그램처럼 쓰기</h3>
+          <p>라면 끓이기, 편의점에서 음료 사기, 지하철 타기 중 하나를 골라 조건문과 반복문을 포함한 절차로 작성합니다.</p>
+        </div>
+        <div class="exercise">
+          <h3>과제 4. 언어 선택하기</h3>
+          <p>웹 화면, 회사 서버, 엑셀 자동화, 임베디드 장비, 게임 엔진에 어울리는 언어를 고르고 이유를 적습니다.</p>
+        </div>
+        <div class="exercise">
+          <h3>과제 5. 정보처리기사와 게시판 연결하기</h3>
+          <p>게시판에 필요한 화면, 저장 데이터, 기능, 테스트 상황, 보안상 조심할 점을 각각 정리합니다.</p>
+        </div>
+      </section>
+
+      <section class="section" id="summary">
+        <h2>10장. 핵심 정리</h2>
+        <div class="grid two">
+          <div class="mini-card">
+            <strong>컴퓨터</strong>
+            명령을 저장하고 실행하는 범용 기계입니다.
+          </div>
+          <div class="mini-card">
+            <strong>폰 노이만 구조</strong>
+            프로그램과 데이터를 메모리에 저장하고 CPU가 명령을 가져와 실행합니다.
+          </div>
+          <div class="mini-card">
+            <strong>프로그래밍 언어</strong>
+            사람이 컴퓨터에게 일을 시키기 위해 사용하는 정확한 약속입니다.
+          </div>
+          <div class="mini-card">
+            <strong>정보처리기사</strong>
+            요구사항, 설계, 구현, 테스트, 보안, 운영까지 개발의 전체 흐름을 보게 합니다.
+          </div>
+        </div>
+
+        <h3>한 줄 정의 모음</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>용어</th>
+              <th>정의</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>프로그램</td><td>컴퓨터가 실행할 명령들의 모음</td></tr>
+            <tr><td>프로그래밍</td><td>문제를 컴퓨터가 실행할 수 있는 절차로 바꾸는 일</td></tr>
+            <tr><td>CPU</td><td>명령어를 해석하고 실행하는 장치</td></tr>
+            <tr><td>메모리</td><td>실행 중인 프로그램과 데이터를 임시 저장하는 공간</td></tr>
+            <tr><td>컴파일러</td><td>코드를 실행 가능한 형태로 미리 번역하는 도구</td></tr>
+            <tr><td>인터프리터</td><td>코드를 실행하면서 해석하는 도구</td></tr>
+            <tr><td>API</td><td>프로그램끼리 정해진 방식으로 소통하는 약속</td></tr>
+            <tr><td>배포</td><td>만든 프로그램을 사용자가 쓸 수 있는 환경에 올리는 일</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout good">
+          <strong>마무리</strong>
+          <p>
+            프로그래밍은 컴퓨터 언어를 배우는 일이면서 동시에 문제를 정리하는 법을 배우는 일입니다.
+            변수는 메모리와 연결되고, 조건문은 판단과 연결되며, 반복문은 자동화와 연결됩니다.
+            정보처리기사는 이 모든 것을 더 큰 개발 프로젝트의 흐름 속에서 보게 해줍니다.
+          </p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>비전공자를 위한 컴퓨터와 프로그래밍 입문 · 교육용 블로그 HTML</p>
+  </footer>
+</body>
+</html>
